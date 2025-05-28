@@ -17,7 +17,7 @@ const config = {
     encrypt: true, // Use this if you're on Azure
     trustServerCertificate: false, // Change to false for production
   },
-  port:parseInt(process.env.DB_PORT,10),
+  port:parseInt(process.env.DB_PORT || '1433', 10),
 };
 // Function to connect to the database
 async function connectToDatabase() {
