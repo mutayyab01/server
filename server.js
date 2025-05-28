@@ -53,7 +53,7 @@ app.use('/api/stripeSession',stripeRoutes)
 app.use('/api/order',orderRoute)
 app.use('/api/sale',saleRoute)
 
-const port=5001;
+const port=5000;
 
 connectToDatabase().then( () =>{
     app.listen(port, () => {
