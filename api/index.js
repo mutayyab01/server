@@ -4,6 +4,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const { connectToDatabase } = require("../utils/db.js");
 const serverless = require('serverless-http');
+
 const usersRoutes = require('../router/usersRoutes');
 const ProductRoutes = require('../router/productRoutes');
 const cityRoutes = require('../router/cityRoutes');
@@ -22,13 +23,7 @@ const saleRoute = require('../router/saleRoute');
 
 const app = express();
 
-// app.use(cors({
-//     origin: ['*'],
-//     credentials: true,
-//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-//     allowedHeaders: ['Content-Type', 'Authorization']
-// }));
-
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 
@@ -48,22 +43,20 @@ app.use('/api/stripeSession', stripeRoutes);
 app.use('/api/order', orderRoute);
 app.use('/api/sale', saleRoute);
 
-// Connect DB before handling requests
+// Ensure DB is connected before handling any requests
 let isDbConnected = false;
 app.use(async (req, res, next) => {
   if (!isDbConnected) {
     try {
       await connectToDatabase();
       isDbConnected = true;
-      next();
     } catch (error) {
       console.error("DB Connection Error:", error);
-      res.status(500).send("Database connection failed.");
+      return res.status(500).send("Database connection failed.");
     }
-  } else {
-    next();
   }
+  next();
 });
 
-// Export as Vercel serverless function
-module.exports.handler = serverless(app);
+// ✅ Export the wrapped app
+module.exports = serverless(app);
