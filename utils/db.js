@@ -15,7 +15,7 @@ const config = {
 // },
   options: {
     encrypt: true, // Use this if you're on Azure
-    trustServerCertificate: true, // Change to false for production
+    trustServerCertificate: false, // Change to false for production
   },
   port:parseInt(process.env.DB_PORT,10),
 };
