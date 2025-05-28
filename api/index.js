@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const { connectToDatabase } = require("../utils/db.js");
-
+const serverless = require('serverless-http');
 const usersRoutes = require('../router/usersRoutes');
 const ProductRoutes = require('../router/productRoutes');
 const cityRoutes = require('../router/cityRoutes');
@@ -66,4 +66,4 @@ app.use(async (req, res, next) => {
 });
 
 // Export as Vercel serverless function
-module.exports = app;
+module.exports.handler = serverless(app);
