@@ -22,12 +22,12 @@ const saleRoute = require('../router/saleRoute');
 
 const app = express();
 
-app.use(cors({
-    origin: ['*', '*'],
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+// app.use(cors({
+//     origin: ['*'],
+//     credentials: true,
+//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+//     allowedHeaders: ['Content-Type', 'Authorization']
+// }));
 
 app.use(cookieParser());
 app.use(express.json());
